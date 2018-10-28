@@ -1,0 +1,8 @@
+src/
+test/
+.idea/
+.gitignore
+.prettierrc
+nodemon.json
+tsconfig.json
+yarn.lock
