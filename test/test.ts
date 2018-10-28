@@ -1,9 +1,7 @@
-import { SSMConfig } from '../src/config';
-import { SSMachine } from '../src/machine';
-import { SSMContext } from '../src/dtos';
+import { LSMachine } from '../src';
 
-const config: SSMConfig = {
-  name: 'SSM1',
+const config = {
+  name: 'LSM1',
   initialState: 'STATE1',
   events: ['e1', 'e2', 'e3'],
   states: {
@@ -20,8 +18,8 @@ const config: SSMConfig = {
         EDGE2: {
           event: 'e2',
           target: 'STATE1',
-          condition: (context?: SSMContext) => {
-            return context && context.tomar2;
+          condition: (context) => {
+            return context && context.to2;
           },
         },
         EDGE3: {
@@ -38,41 +36,32 @@ const config: SSMConfig = {
   },
 };
 
-// STATE1 -> STATE1 -> STATE2 -> STATE1 -> STATE2 -> STATE3
-// const ssm1 = new SSMachine(config);
-// ssm1.onEventError((event, machine, context) => {
-//   console.log(`Error en la máquina ${ssm1.getName()} al disparar el evento ${event} con el contexto ${context}`);
-// });
-// console.log(ssm1.currentSatate().key);
-//
-// ssm1.throwEvent('invalido');
-// console.log(ssm1.currentSatate().key);
-//
-// ssm1.throwEvent('e1');
-// console.log(ssm1.currentSatate().key);
-//
-// ssm1.throwEvent('e2', { tomar2: true });
-// console.log(ssm1.currentSatate().key);
-//
-// ssm1.throwEvent('e1');
-// console.log(ssm1.currentSatate().key);
-//
-// ssm1.throwEvent('e2', { tomar2: false });
-// console.log(ssm1.currentSatate().key);
+// create the state machine from config
+const lsm = new LSMachine(config);
 
-//----------------------------------------------------------------------------------------------------------------//
-
-const ssm2 = new SSMachine(config);
-ssm2.onEventError((event, machine, context) => {
-  console.log(`Error en la máquina ${ssm2.getName()} al disparar el evento ${event} con el contexto ${context}`);
+// register optional error callback
+lsm.onEventError((event, machine, context) => {
+  console.log(`Error in machine ${lsm.getName()} in throwed event ${event} with context ${context}`);
 });
-console.log(ssm2.currentSatate().key);
-console.log(ssm2.possibleActions());
 
-ssm2.throwEvent('e1');
-console.log(ssm2.currentSatate().key);
-console.log(ssm2.possibleActions());
+// { key: 'STATE1' }
+console.log(lsm.currentSatate());
 
-ssm2.throwEvent('e2');
-console.log(ssm2.currentSatate().key);
-console.log(ssm2.possibleActions());
+// [ { event: 'e1', target: { key: 'STATE2' }, edge: { key: 'EDGE1' } } ]
+console.log(lsm.possibleActions());
+
+// throw event 'e1' with context { to2: false } (EDGE1 condition fails!)
+lsm.throwEvent('e1', { to2: false });
+
+// { key: 'STATE2' }
+console.log(lsm.currentSatate());
+
+// [ { event: 'e2', target: { key: 'STATE3' }, edge: { key: 'EDGE3' } },
+//   { event: 'e3', target: { key: 'STATE3' }, edge: { key: 'EDGE4' } } ]
+console.log(lsm.possibleActions());
+
+// throw event 'e2'
+lsm.throwEvent('e2');
+
+// { key: 'STATE3' }
+console.log(lsm.currentSatate());

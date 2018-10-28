@@ -1,11 +1,15 @@
 {
   "name": "lite-state-machine",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Lite library for State Machines",
   "author": "nicosoca",
   "license": "MIT",
   "main": "dist/index.js",
   "types" : "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nicosoca/lite-state-machine.git"
+  },
   "scripts": {
     "format": "prettier --write \"**/*.ts\"",
     "build": "tsc",

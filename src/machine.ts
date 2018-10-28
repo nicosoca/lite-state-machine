@@ -1,12 +1,12 @@
-import { EdgeData, SSMAction, SSMContext, StateData } from './dtos';
-import { SSMConfig } from './config';
+import { EdgeData, LSMAction, LSMContext, StateData } from './dtos';
+import { LSMConfig } from './config';
 
-export class SSMachine {
-  private config: SSMConfig;
+export class LSMachine {
+  private config: LSMConfig;
   private currentStateKey: string;
-  private eventErrorListener: (event: string, machine: SSMachine, context: SSMContext) => void;
+  private eventErrorListener: (event: string, machine: LSMachine, context: LSMContext) => void;
 
-  constructor(config: SSMConfig) {
+  constructor(config: LSMConfig) {
     // TODO validar config y clonarla
     this.config = config;
     this.currentStateKey = config.initialState;
@@ -20,8 +20,8 @@ export class SSMachine {
     return this.config.name;
   }
 
-  possibleActions(context?: SSMContext): SSMAction[] {
-    const ret: SSMAction[] = [];
+  possibleActions(context?: LSMContext): LSMAction[] {
+    const ret: LSMAction[] = [];
     const currentState = this.config.states[this.currentStateKey];
     if (currentState.edges) {
       for (const key of Object.keys(currentState.edges)) {
@@ -39,7 +39,7 @@ export class SSMachine {
     return ret;
   }
 
-  throwEvent(event: string, context?: SSMContext) {
+  throwEvent(event: string, context?: LSMContext) {
     try {
       const currentState = this.config.states[this.currentStateKey];
       if (currentState.edges) {
@@ -70,7 +70,7 @@ export class SSMachine {
     }
   }
 
-  onEventError(listener: (event: string, machine: SSMachine, context: SSMContext) => void) {
+  onEventError(listener: (event: string, machine: LSMachine, context: LSMContext) => void) {
     this.eventErrorListener = listener;
   }
 

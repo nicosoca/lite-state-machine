@@ -6,10 +6,10 @@ export interface EdgeData {
   key: string;
 }
 
-export interface SSMAction {
+export interface LSMAction {
   event: string;
   edge: EdgeData;
   target: StateData;
 }
 
-export type SSMContext = any;
+export type LSMContext = any;
