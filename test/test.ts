@@ -45,7 +45,7 @@ lsm.onEventError((event, machine, context) => {
 });
 
 // { key: 'STATE1' }
-console.log(lsm.currentSatate());
+console.log(lsm.currentState());
 
 // [ { event: 'e1', target: { key: 'STATE2' }, edge: { key: 'EDGE1' } } ]
 console.log(lsm.possibleActions());
@@ -54,7 +54,7 @@ console.log(lsm.possibleActions());
 lsm.throwEvent('e1', { to2: false });
 
 // { key: 'STATE2' }
-console.log(lsm.currentSatate());
+console.log(lsm.currentState());
 
 // [ { event: 'e2', target: { key: 'STATE3' }, edge: { key: 'EDGE3' } },
 //   { event: 'e3', target: { key: 'STATE3' }, edge: { key: 'EDGE4' } } ]
@@ -64,4 +64,4 @@ console.log(lsm.possibleActions());
 lsm.throwEvent('e2');
 
 // { key: 'STATE3' }
-console.log(lsm.currentSatate());
+console.log(lsm.currentState());

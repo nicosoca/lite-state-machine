@@ -12,7 +12,7 @@ export class LSMachine {
     this.currentStateKey = config.initialState;
   }
 
-  currentSatate(): StateData {
+  currentState(): StateData {
     return this.getStateData(this.currentStateKey);
   }
 
