@@ -14,7 +14,7 @@ export interface LSMConfig {
           event: string;
           target: string;
           condition?: (context?: LSMContext) => boolean;
-          action?: (machine: LSMachine, context?: LSMContext) => {};
+          action?: (machine: LSMachine, context?: LSMContext) => void;
         };
       };
     };
