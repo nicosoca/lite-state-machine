@@ -1,9 +1,11 @@
 export interface StateData {
   key: string;
+  payload?: any;
 }
 
 export interface EdgeData {
   key: string;
+  payload?: any;
 }
 
 export interface LSMAction {

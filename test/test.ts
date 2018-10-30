@@ -18,7 +18,7 @@ const config = {
         EDGE2: {
           event: 'e2',
           target: 'STATE1',
-          condition: (context) => {
+          condition: context => {
             return context && context.to2;
           },
         },

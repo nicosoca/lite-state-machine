@@ -76,19 +76,19 @@ export class LSMachine {
 
   private getStateData(key: string): StateData {
     const currentState = this.config.states[key];
+    const ret: StateData = { key };
     if (currentState.stateData) {
-      return currentState.stateData;
-    } else {
-      return { key };
+      ret.payload = currentState.stateData;
     }
+    return ret;
   }
 
   private getEdgeData(stateKey: string, edgeKey: string): EdgeData {
     const edge = this.config.states[stateKey].edges[edgeKey];
+    const ret: EdgeData = { key: edgeKey };
     if (edge.edgeData) {
-      return edge.edgeData;
-    } else {
-      return { key: edgeKey };
+      ret.payload = edge.edgeData;
     }
+    return ret;
   }
 }

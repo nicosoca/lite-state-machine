@@ -1,4 +1,4 @@
-import { EdgeData, LSMContext, StateData } from './dtos';
+import { LSMContext } from './dtos';
 import { LSMachine } from './machine';
 
 export interface LSMConfig {
@@ -7,10 +7,10 @@ export interface LSMConfig {
   events: string[];
   states: {
     [stateKey: string]: {
-      stateData?: StateData;
+      stateData?: any;
       edges?: {
         [edgeKey: string]: {
-          edgeData?: EdgeData;
+          edgeData?: any;
           event: string;
           target: string;
           condition?: (context?: LSMContext) => boolean;
