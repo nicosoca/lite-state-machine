@@ -39,7 +39,7 @@ export class LSMachine {
     return ret;
   }
 
-  throwEvent(event: string, context?: LSMContext) {
+  throwEvent(event: string, context?: LSMContext): EdgeData {
     try {
       const currentState = this.config.states[this.currentStateKey];
       if (currentState.edges) {
@@ -55,10 +55,11 @@ export class LSMachine {
               if (edge.action) {
                 edge.action(this, context);
               }
+              const previousState = this.currentStateKey;
               // cambio de estado
               this.currentStateKey = edge.target;
-              // termino de procesar
-              return;
+              // termino de procesar retornando la data de la arista tomada
+              return this.getEdgeData(previousState, key);
             }
           }
         }
@@ -68,6 +69,7 @@ export class LSMachine {
         this.eventErrorListener(event, this, context);
       }
     }
+    return null;
   }
 
   onEventError(listener: (event: string, machine: LSMachine, context: LSMContext) => void) {

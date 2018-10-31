@@ -51,7 +51,7 @@ console.log(lsm.currentState());
 console.log(lsm.possibleActions());
 
 // throw event 'e1' with context { to2: false } (EDGE1 condition fails!)
-lsm.throwEvent('e1', { to2: false });
+console.log(`throwEvent 'e1': ${JSON.stringify(lsm.throwEvent('e1', { to2: false }))}`);
 
 // { key: 'STATE2' }
 console.log(lsm.currentState());
@@ -61,7 +61,7 @@ console.log(lsm.currentState());
 console.log(lsm.possibleActions());
 
 // throw event 'e2'
-lsm.throwEvent('e2');
+console.log(`throwEvent 'e2': ${JSON.stringify(lsm.throwEvent('e2'))}`);
 
 // { key: 'STATE3' }
 console.log(lsm.currentState());
