@@ -72,6 +72,16 @@ export class LSMachine {
     return null;
   }
 
+  finalize(finalState: string) {
+    if (this.config.finalStates.indexOf(finalState) !== -1) {
+      this.currentStateKey = finalState;
+    } else {
+      if (this.eventErrorListener) {
+        this.eventErrorListener('reserved.finalizate', this, null);
+      }
+    }
+  }
+
   onEventError(listener: (event: string, machine: LSMachine, context: LSMContext) => void) {
     this.eventErrorListener = listener;
   }

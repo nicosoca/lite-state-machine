@@ -4,6 +4,7 @@ import { LSMachine } from './machine';
 export interface LSMConfig {
   name: string;
   initialState: string;
+  finalStates: string[];
   events: string[];
   states: {
     [stateKey: string]: {

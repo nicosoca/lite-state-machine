@@ -3,6 +3,7 @@ import { LSMachine } from '../src';
 const config = {
   name: 'LSM1',
   initialState: 'STATE1',
+  finalStates: ['FINAL1'],
   events: ['e1', 'e2', 'e3'],
   states: {
     STATE1: {
@@ -33,6 +34,7 @@ const config = {
       },
     },
     STATE3: {},
+    FINAL1: {},
   },
 };
 
@@ -64,4 +66,9 @@ console.log(lsm.possibleActions());
 console.log(`throwEvent 'e2': ${JSON.stringify(lsm.throwEvent('e2'))}`);
 
 // { key: 'STATE3' }
+console.log(lsm.currentState());
+
+lsm.finalize('FINAL1');
+
+// { key: 'FINAL1' }
 console.log(lsm.currentState());
